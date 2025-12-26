@@ -83,7 +83,7 @@ if __name__ == '__main__':
         ("NNNNN", 0),
         ("YYYYY", 5),
         ("YN", 1),
-        ("YNYNNNYYY", 9)
+        ("YNYNNNYYY", 1)
     ]
     failed_case = []
     for customers, ans in customers_and_res:
