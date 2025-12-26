@@ -30,9 +30,30 @@ RES  3 2 1 2 1
 - - - 我有一个10长的1和0组成的序列
 - - - 当我直到每一位的前面有几个1的时候，我有办法知道后面有几个0吗？
 
-       0 1 0 1 1 1 0 0 0
-neg  0 4 4 3 3 3 3 2 1 0
+       Y N Y N N N Y Y Y
 idx  0 1 2 3 4 5 6 7 8 9
-pos  0 0 1 1 2 2 3 3 3 3
+       0 1 0 1 1 1 0 0 0
+pos  0 0 1 1 2 3 4 4 4 4
+neg  5 4 4 3 3 3 3 2 1 0
+res  5 4 5 4 5 6 7 6 5 4
 
-- - - 总觉得可以，来研究一下
+- - - 想不到怎么解，看看别人的答案
+'''
+        min_penalty = penalty = ans = 0
+        for i,c in enumerate(customers):
+            if c == "N":
+                penalty += 1
+            else:
+                penalty -= 1
+
+            if penalty < min_penalty:
+                min_penalty = penalty
+                ans = i+1
+'''
+- - - 为什么可以呢？
+- - - 第j个小时的代价 = 0~j小时内有几个N(N0j) + j小时后面几个Y(Yjn)
+- - - j小时后面几个Y(Yjn) = 总Y数量(CountY) - 0~j小时内有几个Y(Y0j)
+- - - 所以第j个小时的代价 = 0~j小时内有几个N(N0j) + j小时后面几个Y(Yjn) = N0j + Yjn = N0j + CountY - Y0j
+- - - 因为CountY是常量，所以第j个小时的代价 = N0j - Y0j
+- - - 所以可行
+

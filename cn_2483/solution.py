@@ -38,7 +38,6 @@ class Solution2:
         postive_count = 0
         for i, c in enumerate(customers):
             hour = i + 1
-            idx = i
             this_char = c
             if this_char == 'N':
                 postive_count += 1
@@ -46,7 +45,6 @@ class Solution2:
         negative_count = 0
         for i, c in enumerate(customers[::-1]):
             hour = len(customers) - i
-            idx = len(customers) - i - 1
             this_char = c
             if this_char == 'Y':
                 negative_count += 1
@@ -63,13 +61,29 @@ class Solution2:
         # print(f"input: {customers}\npos: {postive}\nneg: {negative}\nans: {ans}\n----------")
         return ans
 
+class Solution:
+    # 有没有O(N)的办法呢，没想到，来抄一下答案：
+    def bestClosingTime(self, customers: str) -> int:
+        min_penalty = penalty = ans = 0
+        for i,c in enumerate(customers):
+            if c == "N":
+                penalty += 1
+            else:
+                penalty -= 1
+
+            if penalty < min_penalty:
+                min_penalty = penalty
+                ans = i+1
+        return ans
+
 
 if __name__ == '__main__':
     customers_and_res = [
         ("YYNY", 2),
         ("NNNNN", 0),
         ("YYYYY", 5),
-        ("YN", 1)
+        ("YN", 1),
+        ("YNYNNNYYY", 9)
     ]
     failed_case = []
     for customers, ans in customers_and_res:
