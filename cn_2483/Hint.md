@@ -61,4 +61,3 @@ res  5 4 5 4 5 6 7 6 5 4
     - 所以第j个小时的代价 = 0~j小时内有几个N(N<sub>0j</sub>) + j小时后面几个Y(Y<sub>jn</sub>) = N<sub>0j</sub> + Y<sub>jn</sub> = N<sub>0j</sub> + CountY - Y<sub>0j</sub>
     - 因为CountY是常量，且题目不关注具体的代价值，所以第j个小时的代价可以简化为 = N<sub>0j</sub> - Y<sub>0j</sub>
     - 证明完成
-
