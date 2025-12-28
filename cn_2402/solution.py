@@ -48,27 +48,26 @@ class Solution1:
 
 class Solution:
     def mostBooked(self, n: int, meetings: List[List[int]]) -> int:
-        # 2025年12月27日19:05:26
-        meetings.sort(key=lambda x: x[0]) # 对meetings排序，按照开始时间升序排序
-        busy = [[-1, i] for i in range(n)]
-        free = [[-1, i] for i in range(n)]
-        counter = [0 for i in range(n)]
+        meetings.sort(key=lambda x: x[0])
+        
+        free = list(range(n))  # 初始时，所有房间都空闲
+        busy = []  # (结束时间，id)， 最小堆
+        counter = [0] * n
         
         for start, end in meetings:
+            # 处理结束时间早于当前时间的会议
             while busy and busy[0][0] <= start:
-                free.append(heapq.heappop(busy))
-            if not free:
-                free.append(heapq.heappop(busy))
-            heapq.heapify(free)
-            if free[0][0] <= start:
-                free[0][0] = end
+                heapq.heappush(free, heapq.heappop(busy)[1])
+            
+            if free:
+                i = heapq.heappop(free)
             else:
-                free[0][0] += (end - start)
-            counter[free[0][1]] += 1
-            busy = busy+free
-            heapq.heapify(busy)
-            free.clear()
-        
+                e, i = heapq.heappop(busy)
+                end += e - start
+            
+            heapq.heappush(busy, (end, i))
+            counter[i] += 1
+    
         return counter.index(max(counter))
 
 if __name__ == '__main__':
